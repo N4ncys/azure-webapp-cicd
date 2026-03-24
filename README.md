@@ -22,15 +22,9 @@ The application follows a cloud-native architecture with the following component
 
 ---
 
-## Architecture Diagram
-
-![Architecture Diagram](docs/architecture.png)
-
----
-
 ## CI/CD Pipeline
 
-Every push to the `main` branch triggers the following pipeline:
+Every push to the `main` branch triggers the following steps automatically:
 
 1. **Checkout** — pulls the latest code
 2. **Login to Azure** — authenticates using a service principal
@@ -43,7 +37,7 @@ Every push to the `main` branch triggers the following pipeline:
 
 ## Security Design Decisions
 
-- **Managed Identity** — the Container App uses a system-assigned managed identity to pull images from ACR. No credentials are stored or passed.
+- **Managed Identity** — the Container App uses a system-assigned managed identity to pull images from ACR. No credentials are stored or passed
 - **Key Vault** — all secrets are stored in Azure Key Vault, never hardcoded
 - **No admin credentials on ACR** — admin access is disabled, only managed identity is used
 - **HTTPS only** — all traffic is served over HTTPS via Container Apps built-in ingress
@@ -53,21 +47,40 @@ Every push to the `main` branch triggers the following pipeline:
 ## Screenshots
 
 ### Live Application
-![Health Endpoint](docs/health.png)
-![Data Endpoint](docs/data.png)
+<table>
+  <tr>
+    <td><img src="docs/health.png" width="400"/><br/><sub>Health endpoint</sub></td>
+    <td><img src="docs/data.png" width="400"/><br/><sub>Data endpoint</sub></td>
+  </tr>
+</table>
 
 ### API Documentation
-![API Docs Health](docs/docs-health.png)
-![API Docs Data](docs/docs-data.png)
+<table>
+  <tr>
+    <td><img src="docs/docs-overview.png" width="260"/><br/><sub>API overview</sub></td>
+    <td><img src="docs/docs-data.png" width="260"/><br/><sub>/data endpoint</sub></td>
+    <td><img src="docs/docs-health.png" width="260"/><br/><sub>/health endpoint</sub></td>
+  </tr>
+</table>
 
 ### Azure Portal
-![Resource Group](docs/resource-group.png)
-![Container App](docs/container-app.png)
-![ACR Repository](docs/acr.png)
-![Application Insights](docs/app-insights.png)
+<table>
+  <tr>
+    <td><img src="docs/resource-group.png" width="400"/><br/><sub>Resource group — all 7 resources</sub></td>
+    <td><img src="docs/container-app.png" width="400"/><br/><sub>Container App running</sub></td>
+  </tr>
+  <tr>
+    <td><img src="docs/acr.png" width="400"/><br/><sub>Container Registry</sub></td>
+    <td><img src="docs/app-insights.png" width="400"/><br/><sub>Application Insights</sub></td>
+  </tr>
+</table>
 
 ### CI/CD Pipeline
-![GitHub Actions](docs/github-actions.png)
+<table>
+  <tr>
+    <td><img src="docs/github-actions.png" width="800"/><br/><sub>GitHub Actions — successful deployment</sub></td>
+  </tr>
+</table>
 
 ---
 
@@ -75,23 +88,24 @@ Every push to the `main` branch triggers the following pipeline:
 ```
 .
 ├── app/
-│   ├── main.py           # FastAPI entrypoint
+│   ├── main.py               # FastAPI entrypoint
 │   ├── routers/
-│   │   └── data.py       # /data endpoint
-│   ├── core/             # Logging and config
+│   │   └── data.py           # /data endpoint
+│   ├── core/                 # Logging and config
 │   └── Dockerfile
 ├── infra/
-│   ├── main.tf           # Root Terraform module
+│   ├── main.tf               # Root Terraform module
 │   ├── variables.tf
 │   ├── outputs.tf
 │   └── modules/
-│       ├── acr/          # Container Registry
-│       ├── keyvault/     # Key Vault
-│       ├── container_apps/ # Container Apps
-│       └── monitoring/   # App Insights + Log Analytics
+│       ├── acr/              # Container Registry
+│       ├── keyvault/         # Key Vault
+│       ├── container_apps/   # Container Apps
+│       └── monitoring/       # App Insights + Log Analytics
 ├── .github/
 │   └── workflows/
-│       └── deploy.yml    # CI/CD pipeline
+│       └── deploy.yml        # CI/CD pipeline
+├── docs/                     # Screenshots
 └── tests/
 ```
 
