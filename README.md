@@ -123,7 +123,7 @@ Every push to the `main` branch triggers the following steps automatically:
 
 ## Tech Stack
 
-| Tool | Purpose |
+| 🛠️ Tool | 📋 Purpose |
 |:---|:---|
 | FastAPI | Web framework |
 | Docker | Containerization |
