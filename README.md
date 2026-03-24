@@ -124,7 +124,7 @@ Every push to the `main` branch triggers the following steps automatically:
 ## Tech Stack
 
 | Tool | Purpose |
-|---|---|
+|:---|:---|
 | FastAPI | Web framework |
 | Docker | Containerization |
 | Terraform | Infrastructure as Code |
